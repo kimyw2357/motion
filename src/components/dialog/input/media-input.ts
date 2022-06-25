@@ -2,14 +2,14 @@ import { BaseComponent } from '../../component.js';
 import { MediaData } from '../dialog.js';
 
 export class MediaSectionInput extends BaseComponent<HTMLElement> implements MediaData{
-  constructor() {
+  constructor(webSite?: string) {
     super(`<div>
              <div class="form__container">
                <label for="title">Title</label>
                <input type="text" id="title">
              </div>
              <div class="form__container">
-               <label for="url">URL</label>
+               <label for="url">URL Reference <a href="${webSite}" target="_blank"> (${webSite})</a></label>
                <input type="text" id="url">
              </div>
            </div>`);

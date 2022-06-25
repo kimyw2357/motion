@@ -9,7 +9,7 @@ import { VideoComponent } from './components/page/item/video.js';
 import { Composable, PageComponent, PageItemComponent } from './components/page/page.js';
 
 type InputComponentConstructor<T = (MediaData | TextData) & Component> = {
-  new (): T;
+  new (webSite?: string): T;
 }
 class App {
   private readonly page: Component & Composable;
@@ -20,12 +20,14 @@ class App {
     this.bindElementToDialog<MediaSectionInput>(
       '#new-image', 
       MediaSectionInput, 
-      (input: MediaSectionInput) => new ImageComponent(input.title, input.url));
+      (input: MediaSectionInput) => new ImageComponent(input.title, input.url),
+      'https://picsum.photos');
 
     this.bindElementToDialog<MediaSectionInput>(
       '#new-video', 
       MediaSectionInput, 
-      (input: MediaSectionInput) => new VideoComponent(input.title, input.url));
+      (input: MediaSectionInput) => new VideoComponent(input.title, input.url),
+      'https://www.youtube.com');
 
     this.bindElementToDialog<TextSectionInput>(
       '#new-note', 
@@ -41,12 +43,13 @@ class App {
   private bindElementToDialog<T extends (MediaData | TextData) & Component>(
     selection: string, 
     InputComponent: InputComponentConstructor<T>,
-    makeSection: (input: T) => Component
+    makeSection: (input: T) => Component,
+    webSite?: string
   ) {
     const element = document.querySelector(selection)! as HTMLButtonElement;
     element.onclick = () => {
       const dialog = new InputDialog();
-      const input = new InputComponent();
+      const input = new InputComponent(webSite);
       dialog.addChild(input);
       dialog.attachTo(this.dialogRoot);
 
