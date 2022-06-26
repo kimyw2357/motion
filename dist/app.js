@@ -15,6 +15,10 @@ class App {
         this.bindElementToDialog('#new-video', MediaSectionInput, (input) => new VideoComponent(input.title, input.url), 'https://www.youtube.com');
         this.bindElementToDialog('#new-note', TextSectionInput, (input) => new NoteComponent(input.title, input.body));
         this.bindElementToDialog('#new-todo', TextSectionInput, (input) => new TodoComponent(input.title, input.body));
+        this.page.addChild(new ImageComponent('Image Title', 'https://picsum.photos/800/400'));
+        this.page.addChild(new VideoComponent('うまぴょい伝説', 'https://youtu.be/AJMEjFNewIA'));
+        this.page.addChild(new NoteComponent('北海道', '札幌に移住したい!!'));
+        this.page.addChild(new TodoComponent('転職', '転職したい!!'));
     }
     bindElementToDialog(selection, InputComponent, makeSection, webSite) {
         const element = document.querySelector(selection);
